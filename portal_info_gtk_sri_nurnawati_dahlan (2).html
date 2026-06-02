@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Memuat halaman...</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome untuk Icon Modern -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2 family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              kemdikbud: {
+                50: '#f5f3ff',
+                100: '#ede9fe',
+                500: '#6366f1',
+                600: '#4f46e5',
+                700: '#4338ca',
+                navy: '#0f172a',
+                blue: '#0284c7',
+              }
+            },
+            fontFamily: {
+              sans: ['Plus Jakarta Sans', 'sans-serif'],
+            },
+            animation: {
+              'pulse-subtle': 'pulseSubtle 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'bounce-slow': 'bounce 2s infinite',
+            },
+            keyframes: {
+              pulseSubtle: {
+                '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+                '50%': { opacity: '.94', transform: 'scale(1.02)' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+    
+    <style>
+      /* Efek Backdrop Blur Kustom */
+      .glass-card {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(226, 232, 240, 0.8);
+      }
+      .dark .glass-card {
+        background: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      /* Gaya Scrollbar Kustom */
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(79, 70, 229, 0.2);
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(79, 70, 229, 0.4);
+      }
+    </style>
+  </head>
+  <body class="bg-gradient-to-br from-slate-50 via-indigo-50/20 to-sky-50 dark:from-slate-950 dark:via-slate-900 dark:to-indigo-950/20 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col items-center justify-between p-3 md:p-6 transition-colors duration-300">
+    
+    <!-- Ornamen Latar Belakang Estetik Khas GTK -->
+    <div class="fixed top-[-10%] left-[-10%] w-[40vw] h-[40vw] rounded-full bg-indigo-500/10 dark:bg-indigo-900/10 blur-[100px] pointer-events-none z-0"></div>
+    <div class="fixed bottom-[-10%] right-[-10%] w-[40vw] h-[40vw] rounded-full bg-sky-500/10 dark:bg-sky-900/10 blur-[100px] pointer-events-none z-0"></div>
+
+    <!-- HEADER PORTAL INFO GTK BRANDING (Melebar ke max-w-7xl) -->
+    <header class="w-full max-w-7xl mb-6 relative z-10 glass-card rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-md border-l-4 border-l-indigo-600 dark:border-l-indigo-500">
+      <div class="flex items-center gap-4 text-center sm:text-left">
+        <!-- Logo Tut Wuri Handayani (Vector) -->
+        <div class="w-14 h-14 bg-white dark:bg-slate-800 rounded-xl p-1.5 shadow-sm flex items-center justify-center shrink-0 border border-slate-100 dark:border-slate-700">
+          <svg viewBox="0 0 100 100" class="w-full h-full text-indigo-600 dark:text-sky-450" fill="currentColor">
+            <path d="M50,15 L15,45 L25,48 L25,75 L40,75 L40,60 L60,60 L60,75 L75,75 L75,48 L85,45 Z" fill="#4f46e5" />
+            <circle cx="50" cy="45" r="10" fill="#eab308" />
+            <path d="M35,32 Q50,22 65,32" stroke="#eab308" stroke-width="4" fill="none" />
+            <path d="M20,85 L80,85" stroke="#1e293b" stroke-width="5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="flex flex-wrap items-center gap-2 justify-center sm:justify-start">
+            <span class="bg-indigo-100 dark:bg-indigo-950/60 text-indigo-800 dark:text-indigo-300 text-[10px] font-extrabold tracking-wider uppercase px-2 py-0.5 rounded-md" id="header-badge-text">PORTAL RESMI</span>
+            <span class="text-xs text-slate-400 font-semibold" id="header-ta-text">Tahun Ajaran...</span>
+          </div>
+          <h2 class="text-lg font-extrabold text-slate-950 dark:text-white tracking-tight" id="header-portal-title">INFO GTK KEMENDIKDASMEN</h2>
+          <p class="text-xs text-slate-500 dark:text-slate-400" id="header-portal-desc">Verifikasi Data Guru & Tenaga Kependidikan Republik Indonesia</p>
+        </div>
+      </div>
+      
+      <!-- Status Sinkronisasi Real-time -->
+      <div class="flex items-center gap-3 bg-slate-100/80 dark:bg-slate-800/80 py-2 px-4 rounded-xl border border-slate-200/50 dark:border-slate-700/50">
+        <div class="w-2.5 h-2.5 rounded-full bg-indigo-500 animate-ping"></div>
+        <div class="text-right text-xs">
+          <span class="text-slate-400 block text-[9px] uppercase font-bold tracking-wider">Koneksi Dapodik</span>
+          <span class="font-bold text-slate-700 dark:text-slate-200" id="header-connection-status">Terhubung & Aktif</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Container Utama: Melebar ke max-w-7xl untuk tampilan yang lebih leluasa di desktop -->
+    <main class="w-full max-w-7xl my-auto relative z-10 flex flex-col lg:flex-row items-stretch gap-6">
+      
+      <!-- Panel Kiri: Informasi Identitas GTK & Verifikasi Validasi (Dilebarkan agar nama tidak turun) -->
+      <section class="lg:w-[36%] xl:w-[32%] flex flex-col justify-between p-6 md:p-8 glass-card rounded-3xl shadow-xl relative overflow-hidden border-t-4 border-t-indigo-500">
+        
+        <!-- Ornamen kecil dekoratif di dalam card -->
+        <div class="absolute -top-10 -left-10 w-32 h-32 bg-indigo-400/10 rounded-full blur-2xl"></div>
+        <div class="absolute -bottom-10 -right-10 w-32 h-32 bg-sky-400/10 rounded-full blur-2xl"></div>
+
+        <!-- Bagian Atas Panel Kiri: Tombol Bagikan & Tema -->
+        <div class="flex justify-between items-center mb-6 relative z-10">
+          <button onclick="shareProfile()" class="bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-sm border border-slate-200/50 dark:border-slate-700/50" title="Bagikan Tautan">
+            <i class="fa-solid fa-share-nodes"></i>
+          </button>
+          
+          <div class="flex items-center gap-2 px-3 py-1.5 bg-sky-50 dark:bg-sky-950/50 rounded-full text-xs font-semibold tracking-wide text-sky-600 dark:text-sky-400 uppercase">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span id="profile-school-short">Memuat...</span>
+          </div>
+
+          <button onclick="toggleDarkMode()" class="bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-sm border border-slate-200/50 dark:border-slate-700/50" title="Ubah Tema">
+            <i id="theme-icon" class="fa-solid fa-moon"></i>
+          </button>
+        </div>
+
+        <!-- Tengah: Foto Profil Besar & Informasi Guru -->
+        <div class="flex flex-col items-center text-center my-auto py-2 relative z-10">
+          
+          <!-- KOTAK STATUS VALIDASI - KHAS INFO GTK -->
+          <div class="w-full mb-6 bg-indigo-500/10 dark:bg-indigo-500/20 border border-indigo-500/30 rounded-2xl p-3 flex items-center justify-between gap-3 shadow-sm">
+            <div class="flex items-center gap-2.5 text-left">
+              <div class="w-9 h-9 bg-indigo-600 rounded-xl flex items-center justify-center text-white shrink-0">
+                <i class="fa-solid fa-user-check text-sm"></i>
+              </div>
+              <div>
+                <span class="text-[11px] text-slate-700 dark:text-indigo-300 uppercase block font-extrabold tracking-wider" id="validation-label">Status Validasi TPG</span>
+              </div>
+            </div>
+            <!-- Lencana VALID berkedip (Pulse) -->
+            <span class="px-3 py-1.5 bg-indigo-600 text-white rounded-lg text-xs font-black tracking-widest uppercase animate-pulse shadow-sm" id="validation-badge">VALID</span>
+          </div>
+
+          <!-- Foto Profil -->
+          <div class="relative inline-block group mb-4">
+            <!-- Efek Glow Ring di belakang foto -->
+            <div class="absolute -inset-1.5 bg-gradient-to-r from-indigo-500 to-sky-500 rounded-full blur opacity-45 group-hover:opacity-75 transition duration-1000 group-hover:duration-200 animate-pulse-subtle"></div>
+            
+            <div class="relative w-36 h-36 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-white dark:border-slate-800 shadow-2xl bg-slate-100 flex items-center justify-center" id="profile-img-container">
+              <!-- Foto profil di-render secara dinamis di JS -->
+            </div>
+          </div>
+
+          <h1 class="text-xl md:text-2xl lg:text-xl xl:text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight whitespace-nowrap" id="profile-teacher-name">
+            Memuat...
+          </h1>
+          
+          <span class="mt-2 px-3 py-1 bg-gradient-to-r from-indigo-600 to-sky-600 text-white text-xs font-bold tracking-wider uppercase rounded-full shadow-md shadow-indigo-500/15" id="profile-teacher-role">
+            Memuat...
+          </span>
+
+          <!-- Biodata Guru Terstruktur (Format Kartu Data INFO GTK) -->
+          <div class="w-full mt-6 space-y-2 text-left bg-slate-50/80 dark:bg-slate-900/40 p-4 rounded-2xl border border-slate-200/50 dark:border-slate-800/50 text-xs">
+            
+            <div class="flex items-center justify-between py-1.5 border-b border-dashed border-slate-200 dark:border-slate-800">
+              <span class="text-slate-400 font-medium">NIP Baru</span>
+              <span class="font-bold text-slate-800 dark:text-slate-200" id="meta-nip">Memuat...</span>
+            </div>
+
+            <div class="flex items-center justify-between py-1.5 border-b border-dashed border-slate-200 dark:border-slate-800">
+              <span class="text-slate-400 font-medium">NUPTK</span>
+              <span class="font-bold text-slate-800 dark:text-slate-200" id="meta-nuptk">Memuat...</span>
+            </div>
+
+            <!-- JABATAN / TUGAS TAMBAHAN -->
+            <div class="flex items-center justify-between py-1.5 border-b border-dashed border-slate-200 dark:border-slate-800">
+              <span class="text-slate-400 font-medium">Jabatan</span>
+              <span class="font-bold text-slate-800 dark:text-slate-200" id="meta-jabatan">Memuat...</span>
+            </div>
+
+            <div class="flex items-center justify-between py-1.5 border-b border-dashed border-slate-200 dark:border-slate-800">
+              <span class="text-slate-400 font-medium">Satuan Pendidikan</span>
+              <span class="font-bold text-slate-800 dark:text-slate-200 text-right" id="meta-school">Memuat...</span>
+            </div>
+
+            <div class="flex items-center justify-between py-1.5 border-b border-dashed border-slate-200 dark:border-slate-800">
+              <span class="text-slate-400 font-medium">Mata Pelajaran Induk</span>
+              <span class="font-bold text-slate-800 dark:text-slate-200" id="meta-subject">Memuat...</span>
+            </div>
+
+            <div class="flex items-center justify-between py-1.5">
+              <span class="text-slate-400 font-medium">Beban Mengajar (JJM)</span>
+              <span class="font-bold text-indigo-600 dark:text-indigo-400" id="meta-jjm">Memuat...</span>
+            </div>
+            
+          </div>
+        </div>
+
+        <!-- Bagian Bawah Panel Kiri: Lokasi -->
+        <div class="mt-5 flex items-center justify-center gap-1.5 text-[11px] text-slate-500 dark:text-slate-400 relative z-10 bg-slate-100/60 dark:bg-slate-800/30 py-2.5 px-4 rounded-xl border border-slate-200/30 dark:border-slate-700/30">
+          <i class="fa-solid fa-location-dot text-rose-500"></i>
+          <span id="profile-location">Memuat...</span>
+        </div>
+      </section>
+
+      <!-- Panel Kanan: Kumpulan Tautan (Disesuaikan lebarnya untuk mengimbangi panel kiri) -->
+      <section class="lg:w-[64%] xl:w-[68%] flex flex-col justify-start p-6 md:p-8 glass-card rounded-3xl shadow-xl border-t-4 border-t-sky-500">
+        
+        <div class="mb-5">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <i class="fa-solid fa-database text-sky-500"></i>
+            Verifikasi Rincian Data & Modul Link
+          </h2>
+          <p class="text-xs text-slate-400 mt-1">Gunakan bilah pencarian dan tab modul untuk mengakses berkas verifikasi data administrasi Anda.</p>
+        </div>
+
+        <!-- Input Pencarian -->
+        <div class="w-full mb-4">
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </span>
+            <input 
+              type="text" 
+              id="search-input" 
+              oninput="filterLinks()" 
+              placeholder="Cari modul, surat keputusan, instrumen atau laporan..." 
+              class="w-full pl-10 pr-4 py-3 rounded-xl bg-white/50 dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm placeholder-slate-400 transition-all shadow-sm"
+            />
+          </div>
+        </div>
+
+        <!-- Tab Filter Kategori ala Info GTK Modul -->
+        <div class="w-full flex gap-1.5 overflow-x-auto pb-2 mb-4 scrollbar-none" id="categories-container">
+          <!-- Kategori Di-render Dinamis Oleh JS -->
+        </div>
+
+        <!-- Daftar Tautan (Ditata dalam 3 Kolom pada layar besar xl ke atas untuk mengimbangi desain lebar) -->
+        <div id="links-container" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3.5 overflow-y-auto max-h-[500px] pr-1">
+          <!-- Kartu Tautan Di-render Dinamis Oleh JS -->
+        </div>
+
+        <!-- Pesan Saat Pencarian Tidak Ditemukan -->
+        <div id="no-results" class="hidden text-center py-12 flex flex-col items-center justify-center gap-2 text-slate-400">
+          <i class="fa-regular fa-folder-open text-4xl text-indigo-400 animate-bounce-slow"></i>
+          <p class="text-sm font-semibold text-slate-500 dark:text-slate-400">Tautan tidak ditemukan</p>
+          <p class="text-xs text-slate-400">Pastikan kata kunci pencarian Anda sudah benar</p>
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- POP-UP MODAL G7KAIH -->
+    <div id="g7kaih-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md hidden transition-all duration-300">
+      <div class="glass-card w-full max-w-2xl rounded-3xl p-6 md:p-8 shadow-2xl border border-slate-200/50 dark:border-slate-800 max-h-[85vh] overflow-y-auto flex flex-col relative animate-pulse-subtle">
+        
+        <!-- Header Modal -->
+        <div class="flex items-start justify-between border-b border-slate-200 dark:border-slate-800 pb-4 mb-5">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center text-xl shadow-md shrink-0">
+              <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <div>
+              <h3 class="font-extrabold text-base md:text-lg text-slate-950 dark:text-white leading-tight">G7KAIH</h3>
+              <p class="text-xs text-slate-400">Gerakan 7 Karakter Anak Indonesia Hebat</p>
+            </div>
+          </div>
+          <button onclick="closeG7KaihModal()" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 flex items-center justify-center hover:bg-rose-500 hover:text-white dark:hover:bg-rose-600 transition-all duration-200">
+            <i class="fa-solid fa-xmark text-sm"></i>
+          </button>
+        </div>
+
+        <!-- Konten / Daftar 7 Karakter -->
+        <div id="g7kaih-list" class="space-y-4 pr-1">
+          <!-- Karakter Di-render Dinamis dari g7Characters -->
+        </div>
+
+        <!-- Footer Modal / Tombol Tutup Selesai -->
+        <div class="mt-6 flex justify-end">
+          <button onclick="closeG7KaihModal()" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow-md transition-all duration-200">
+            Selesai Membaca
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="w-full text-center py-6 text-[10px] text-slate-400 dark:text-slate-500 relative z-10 leading-relaxed max-w-4xl">
+      <p>© <span id="current-year">2026</span> <span id="footer-school-name">Memuat...</span>. Seluruh Hak Cipta Dilindungi.</p>
+      <p class="mt-0.5">Layanan Terpadu Informasi Guru dan Tenaga Kependidikan dikoordinasikan oleh Kementerian Pendidikan Dasar dan Menengah Republik Indonesia.</p>
+    </footer>
+
+    <!-- Notifikasi Toast -->
+    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 glass-card border border-indigo-500/20 px-5 py-3 rounded-full text-xs font-semibold shadow-xl flex items-center gap-2 text-indigo-600 dark:text-indigo-400 opacity-0 pointer-events-none translate-y-4 transition-all duration-300 z-50">
+      <i class="fa-solid fa-circle-check text-sm text-indigo-500"></i>
+      <span id="toast-message">Tautan disalin ke papan klip!</span>
+    </div>
+
+    <!-- Logika Utama & Tempat Konfigurasi -->
+    <script>
+      // =========================================================================
+      // 🛠️ CONFIG DIBAWAH INI TELAH DISESUAIKAN UNTUK SRI NURNAWATI DAHLAN, S.Pd
+      // =========================================================================
+      const CONFIG = {
+        meta: {
+          title: "Profil - Sri Nurnawati Dahlan, S.Pd",
+          portalTitle: "INFO GTK KEMENDIKDASMEN",
+          schoolLong: "UPT SPF SMP Negeri 3 Makassar",
+          schoolShort: "SMPN 3 Makassar",
+          academicYear: "Tahun Ajaran 2025/2026",
+          location: "Kota Makassar, Sulawesi Selatan (Wilayah IV)"
+        },
+        teacher: {
+          name: "Sri Nurnawati Dahlan, S.Pd",
+          role: "Guru Matematika / HUMAS",
+          nip: "197307231995122001",
+          nuptk: "3055751652300033",
+          jabatan: "HUMAS", 
+          subject: "Matematika",
+          jjm: "25 Jam / Minggu (Terpenuhi)",
+          statusBadge: "VALID",     
+          profileImg: "logo.jpeg" 
+        },
+        categories: [
+          { id: "all", label: "Semua", icon: "fa-border-all" },
+          { id: "eksternal", label: "Layanan Luar", icon: "fa-earth-asia" },
+          { id: "kurikulum", label: "Kurikulum", icon: "fa-scroll" },
+          { id: "laporan", label: "Laporan", icon: "fa-folder-open" },
+          { id: "input", label: "Input/Evaluasi", icon: "fa-file-pen" }
+        ],
+        links: [
+          { title: "CAPAIAN PEMBELAJARAN", category: "kurikulum", url: "#", status: "Terverifikasi", icon: "fa-book-open-reader", color: "indigo" },
+          { title: "CORE TAX DJP", category: "eksternal", url: "https://coretaxdjp.pajak.go.id/", status: "Pajak", icon: "fa-coins", color: "orange" },
+          { title: "ERAPOR KURIKULUM", category: "input", url: "https://rapor.smpn3mks.sch.id", status: "Input Nilai", icon: "fa-file-invoice", color: "rose" },
+          { title: "G7KAIH", category: "input", url: "javascript:openG7KaihModal()", status: "Karakter", icon: "fa-children", color: "amber" },
+          { title: "INFO GTK RESMI", category: "eksternal", url: "https://info.gtk.kemendikdasmen.go.id/", status: "Portal Utama", icon: "fa-id-card-clip", color: "blue" },
+          { title: "JURNAL PEMBELAJARAN", category: "laporan", url: "#", status: "Siap Cetak", icon: "fa-table", color: "indigo" },
+          { title: "KBBI DARING", category: "eksternal", url: "https://kbbi.kemendikdasmen.go.id/", status: "Rujukan", icon: "fa-spell-check", color: "cyan" },
+          { title: "LAMARITA", category: "input", url: "https://sinadi.smpn3mks.sch.id/", status: "Mandiri", icon: "fa-clipboard-check", color: "indigo" },
+          { title: "LAPORAN GURU WALI", category: "laporan", url: "#", status: "Disetujui", icon: "fa-address-book", color: "pink" },
+          { title: "MODUL AJAR", category: "kurikulum", url: "#", status: "Sinkron", icon: "fa-swatchbook", color: "violet" },
+          { title: "MYASN BKN", category: "eksternal", url: "https://myasn.bkn.go.id", status: "Kepegawaian", icon: "fa-id-badge", color: "red" },
+          { title: "PASPOR SIMPKB", category: "eksternal", url: "https://paspor-gtk.simpkb.id/", status: "Akses Diklat", icon: "fa-passport", color: "sky" },
+          { title: "RUMAH BELAJAR", category: "eksternal", url: "https://rumah.pendidikan.go.id/", status: "Sumber Belajar", icon: "fa-house-laptop", color: "teal" },
+          { title: "SISTEM PERBUKUAN", category: "eksternal", url: "https://buku.kemendikdasmen.go.id/", status: "Katalog", icon: "fa-book-bookmark", color: "amber" },
+          { title: "TP DAN ATP", category: "kurikulum", url: "#", status: "Valid", icon: "fa-route", color: "sky" }
+        ],
+        g7Characters: [
+          { name: "Bangun Pagi", desc: "Segar dan siap beraktivitas lebih awal.", icon: "fa-cloud-sun", color: "amber" },
+          { name: "Beribadah", desc: "Menanamkan nilai moral dan spiritual.", icon: "fa-hands-praying", color: "rose" },
+          { name: "Berolahraga", desc: "Menjaga fisik tetap prima dan bugar.", icon: "fa-dumbbell", color: "sky" },
+          { name: "Makan Sehat", desc: "Nutrisi seimbang untuk daya konsentrasi.", icon: "fa-apple-whole", color: "indigo" },
+          { name: "Gemar Belajar", desc: "Mengasah kreativitas dan rasa ingin tahu.", icon: "fa-book-open", color: "violet" },
+          { name: "Bermasyarakat", desc: "Jiwa gotong royong dan peduli sesama.", icon: "fa-users", color: "indigo" },
+          { name: "Tidur Awal", desc: "Istirahat cukup untuk kualitas hidup.", icon: "fa-moon", color: "slate" }
+        ]
+      };
+      // =========================================================================
+
+      // Pemetaan Warna Dinamis ke Tailwind CSS Classes (Sekarang menggunakan warna dominan Indigo)
+      function getColorClasses(color) {
+        const colorMap = {
+          indigo: "bg-indigo-100 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400",
+          sky: "bg-sky-100 dark:bg-sky-950/50 text-sky-600 dark:text-sky-400",
+          violet: "bg-violet-100 dark:bg-violet-950/50 text-violet-600 dark:text-violet-400",
+          amber: "bg-amber-100 dark:bg-amber-950/50 text-amber-600 dark:text-amber-400",
+          pink: "bg-pink-100 dark:bg-pink-950/50 text-pink-600 dark:text-pink-400",
+          teal: "bg-teal-100 dark:bg-teal-950/50 text-teal-600 dark:text-teal-400",
+          rose: "bg-rose-100 dark:bg-rose-950/50 text-rose-600 dark:text-rose-400",
+          purple: "bg-purple-100 dark:bg-purple-950/50 text-purple-600 dark:text-purple-400",
+          orange: "bg-orange-100 dark:bg-orange-950/50 text-orange-600 dark:text-orange-400",
+          cyan: "bg-cyan-100 dark:bg-cyan-950/50 text-cyan-600 dark:text-cyan-400",
+          red: "bg-red-100 dark:bg-red-950/50 text-red-600 dark:text-red-400",
+          slate: "bg-slate-100 dark:bg-slate-800/50 text-slate-600 dark:text-slate-450",
+          blue: "bg-blue-100 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400"
+        };
+        return colorMap[color] || "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-450";
+      }
+
+      // Inisialisasi Rendering Dinamis Berdasarkan CONFIG
+      document.addEventListener("DOMContentLoaded", () => {
+        // Render Meta & Judul Dokumen
+        document.title = CONFIG.meta.title;
+        document.getElementById('header-portal-title').textContent = CONFIG.meta.portalTitle;
+        document.getElementById('header-ta-text').textContent = CONFIG.meta.academicYear;
+        document.getElementById('profile-school-short').textContent = CONFIG.meta.schoolShort;
+        document.getElementById('footer-school-name').textContent = CONFIG.meta.schoolLong;
+        
+        // Render Informasi Guru
+        document.getElementById('validation-badge').textContent = CONFIG.teacher.statusBadge;
+        document.getElementById('profile-teacher-name').textContent = CONFIG.teacher.name;
+        document.getElementById('profile-teacher-role').textContent = CONFIG.teacher.role;
+        document.getElementById('profile-location').textContent = CONFIG.meta.location;
+        
+        // Render Detail Metadata Verifikasi
+        document.getElementById('meta-nip').textContent = CONFIG.teacher.nip;
+        document.getElementById('meta-nuptk').textContent = CONFIG.teacher.nuptk;
+        document.getElementById('meta-jabatan').textContent = CONFIG.teacher.jabatan; 
+        document.getElementById('meta-school').textContent = CONFIG.meta.schoolLong;
+        document.getElementById('meta-subject').textContent = CONFIG.teacher.subject;
+        document.getElementById('meta-jjm').textContent = CONFIG.teacher.jjm;
+
+        // Render Image Profil
+        const imgContainer = document.getElementById('profile-img-container');
+        imgContainer.innerHTML = `
+          <img 
+            id="profile-img" 
+            src="${CONFIG.teacher.profileImg}" 
+            alt="Foto Profil ${CONFIG.teacher.name}" 
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+            onerror="handleImageError()"
+          />
+        `;
+
+        // Render Tab Kategori
+        renderCategories();
+
+        // Render Daftar Tautan
+        renderLinks();
+
+        // Render Karakter G7KAIH ke Modal
+        renderG7Characters();
+      });
+
+      // Render Tombol Tab Kategori secara Dinamis
+      function renderCategories() {
+        const container = document.getElementById('categories-container');
+        container.innerHTML = CONFIG.categories.map((cat, index) => {
+          const isActive = index === 0; // Default kategori pertama ("Semua Data") aktif
+          const activeClass = isActive 
+            ? "bg-indigo-600 text-white shadow-md shadow-indigo-500/20" 
+            : "bg-white dark:bg-slate-800/40 hover:bg-white dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300";
+          
+          return `
+            <button 
+              onclick="filterCategory('${cat.id}')" 
+              id="tab-${cat.id}" 
+              class="category-tab px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-300 ${activeClass}"
+            >
+              <i class="fa-solid ${cat.icon} mr-1"></i> ${cat.label}
+            </button>
+          `;
+        }).join('');
+      }
+
+      // Render Daftar Tautan secara Dinamis
+      function renderLinks() {
+        const container = document.getElementById('links-container');
+        container.innerHTML = CONFIG.links.map(link => {
+          const isJavascript = link.url.startsWith('javascript:');
+          const targetAttr = isJavascript ? '' : 'target="_blank"';
+          const colorClass = getColorClasses(link.color);
+          const textClass = colorClass.split(' ').pop(); // Ambil kelas warna teks
+          
+          return `
+            <a 
+              href="${link.url}" 
+              ${targetAttr}
+              class="link-card flex items-center justify-between p-4 bg-white/50 dark:bg-slate-900/20 hover:bg-indigo-50/40 dark:hover:bg-slate-800/80 border border-slate-200/40 dark:border-slate-800/30 rounded-2xl hover:translate-y-[-2px] hover:shadow-md transition-all duration-300 group" 
+              data-category="${link.category}"
+            >
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl ${colorClass} flex items-center justify-center text-lg shadow-inner shrink-0">
+                  <i class="fa-solid ${link.icon}"></i>
+                </div>
+                <div class="min-w-0">
+                  <span class="font-bold text-xs md:text-sm block truncate text-slate-850 dark:text-slate-100">${link.title}</span>
+                  <span class="text-[9px] ${textClass} uppercase tracking-wider font-extrabold flex items-center gap-1 mt-0.5">
+                    <i class="fa-solid fa-circle-check"></i> ${link.status}
+                  </span>
+                </div>
+              </div>
+              <i class="fa-solid fa-chevron-right text-slate-400 group-hover:text-indigo-500 group-hover:translate-x-0.5 transition-all text-xs shrink-0"></i>
+            </a>
+          `;
+        }).join('');
+      }
+
+      // Render Karakter G7KAIH ke dalam Modal
+      function renderG7Characters() {
+        const container = document.getElementById('g7kaih-list');
+        container.innerHTML = CONFIG.g7Characters.map(char => {
+          const colorClass = getColorClasses(char.color);
+          return `
+            <div class="flex gap-4 p-3 rounded-2xl bg-white/40 dark:bg-slate-900/40 border border-slate-200/30 dark:border-slate-800/20">
+              <div class="w-10 h-10 rounded-xl ${colorClass} flex items-center justify-center text-lg shrink-0 shadow-inner">
+                <i class="fa-solid ${char.icon} ${char.icon === 'fa-cloud-sun' ? 'animate-pulse' : ''}"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-xs md:text-sm text-slate-900 dark:text-white">${char.name}</h4>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">${char.desc}</p>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Fungsi Pengontrol Modal Pop-up G7KAIH
+      function openG7KaihModal() {
+        const modal = document.getElementById('g7kaih-modal');
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; 
+      }
+
+      // Tutup Modal Pop-up G7KAIH
+      function closeG7KaihModal() {
+        const modal = document.getElementById('g7kaih-modal');
+        modal.classList.add('hidden');
+        document.body.style.overflow = ''; 
+      }
+
+      // Penanganan Error Gambar (Inisial Nama Guru Sri Nurnawati Dahlan -> SN)
+      function handleImageError() {
+        // Membersihkan gelar jika ada koma untuk mengambil inisial murni dari nama depan
+        const rawName = CONFIG.teacher.name.split(',')[0];
+        const initials = rawName.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase();
+        const imgContainer = document.getElementById('profile-img-container');
+        imgContainer.innerHTML = `
+          <div class="w-full h-full bg-gradient-to-tr from-indigo-600 via-blue-600 to-sky-500 flex items-center justify-center text-white text-5xl font-extrabold tracking-wider animate-pulse-subtle">
+            ${initials}
+          </div>
+        `;
+      }
+
+      // Filter Kategori Aktif
+      let currentCategory = 'all';
+      function filterCategory(category) {
+        currentCategory = category;
+        
+        // Atur ulang warna/desain tab aktif dan non-aktif
+        const tabs = document.querySelectorAll('.category-tab');
+        tabs.forEach(tab => {
+          tab.className = "category-tab px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-300 bg-white dark:bg-slate-800/40 hover:bg-white dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300";
+        });
+
+        const activeTab = document.getElementById(`tab-${category}`);
+        if (activeTab) {
+          activeTab.className = "category-tab px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-300 bg-indigo-600 text-white shadow-md shadow-indigo-500/20";
+        }
+
+        filterLinks();
+      }
+
+      // Filter Pencarian & Kategori Gabungan
+      function filterLinks() {
+        const query = document.getElementById('search-input').value.toLowerCase();
+        const cards = document.querySelectorAll('.link-card');
+        let visibleCount = 0;
+
+        cards.forEach(card => {
+          const title = card.querySelector('span.font-bold').textContent.toLowerCase();
+          const category = card.getAttribute('data-category');
+          
+          const matchesCategory = (currentCategory === 'all' || category === currentCategory);
+          const matchesSearch = title.includes(query);
+
+          if (matchesCategory && matchesSearch) {
+            card.style.display = 'flex';
+            visibleCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        const noResults = document.getElementById('no-results');
+        const linksContainer = document.getElementById('links-container');
+        if (visibleCount === 0) {
+          noResults.classList.remove('hidden');
+          linksContainer.classList.add('hidden');
+        } else {
+          noResults.classList.add('hidden');
+          linksContainer.classList.remove('hidden');
+        }
+      }
+
+      // Toggle Dark / Light Mode
+      function toggleDarkMode() {
+        const html = document.documentElement;
+        const icon = document.getElementById('theme-icon');
+        
+        if (html.classList.contains('dark')) {
+          html.classList.remove('dark');
+          localStorage.setItem('theme', 'light');
+          icon.className = 'fa-solid fa-moon';
+        } else {
+          html.classList.add('dark');
+          localStorage.setItem('theme', 'dark');
+          icon.className = 'fa-solid fa-sun';
+        }
+      }
+
+      // Set Tema Saat Memuat Halaman Pertama Kali
+      (function initTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const icon = document.getElementById('theme-icon');
+        
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+          document.documentElement.classList.add('dark');
+          if (icon) icon.className = 'fa-solid fa-sun';
+        } else {
+          document.documentElement.classList.remove('dark');
+          if (icon) icon.className = 'fa-solid fa-moon';
+        }
+      })();
+
+      // Tampilkan Toast Notifikasi Kustom
+      function showToast(message) {
+        const toast = document.getElementById('toast');
+        const toastMsg = document.getElementById('toast-message');
+        
+        toastMsg.textContent = message;
+        toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+        toast.classList.add('opacity-100', 'translate-y-0');
+        
+        setTimeout(() => {
+          toast.classList.remove('opacity-100', 'translate-y-0');
+          toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+        }, 2500);
+      }
+
+      // Fungsi Salin Tautan Profil
+      function shareProfile() {
+        const dummyUrl = window.location.href;
+        const dummyInput = document.createElement('input');
+        document.body.appendChild(dummyInput);
+        dummyInput.value = dummyUrl;
+        dummyInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(dummyInput);
+
+        showToast('Tautan profil berhasil disalin!');
+      }
+    </script>
+  </body>
+</html>
